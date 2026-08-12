@@ -1,38 +1,291 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@600;700;800&display=swap');
+
+:root {
+  --bg-0: #f4efe4;
+  --bg-1: #f8f4ec;
+  --ink: #1b1b1a;
+  --muted: #5f5a53;
+  --accent: #d85d33;
+  --accent-soft: #eb8b55;
+  --panel: rgba(255, 255, 255, 0.65);
+  --line: rgba(27, 27, 26, 0.2);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.site-shell {
+  position: relative;
   min-height: 100vh;
+  padding: clamp(1.25rem, 2vw, 2rem);
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px);
+  gap: clamp(1rem, 2vw, 2rem);
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 20%, #ffe7b8 0%, transparent 36%),
+    radial-gradient(circle at 88% 15%, #ffd8be 0%, transparent 40%),
+    linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 100%);
+}
+
+.background-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(27, 27, 26, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 27, 26, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 85%);
+  z-index: 0;
+}
+
+.background-beam {
+  position: absolute;
+  width: 42vw;
+  max-width: 520px;
+  height: 42vw;
+  max-height: 520px;
+  border-radius: 50%;
+  filter: blur(64px);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+.beam-a {
+  background: #ffcc83;
+  top: -10%;
+  right: -8%;
+  animation: drift-a 12s ease-in-out infinite alternate;
+}
+
+.beam-b {
+  background: #e8a6ff;
+  bottom: -15%;
+  left: -8%;
+  animation: drift-b 14s ease-in-out infinite alternate;
+}
+
+.hero-card,
+.signal-tower {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(1.2rem, 3.2vw, 3rem);
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 24px 70px rgba(64, 38, 13, 0.15);
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.status-pill {
+  margin: 0;
+  width: fit-content;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.hero-card h1 {
+  margin: 0;
+  max-width: 12ch;
+  line-height: 0.92;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.3rem, 7vw, 5.5rem);
+  text-transform: uppercase;
+}
+
+.hero-card h1 span {
+  display: block;
+  color: var(--accent);
+}
+
+.hero-copy {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.progress-panel {
+  margin-top: 0.4rem;
+  border: 1px solid rgba(27, 27, 26, 0.18);
+  border-radius: 16px;
+  padding: 0.95rem;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.progress-labels {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  font: 600 0.9rem/1 'Space Grotesk', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(27, 27, 26, 0.1);
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.progress-fill {
+  width: 78%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
+  transform-origin: left center;
+  animation: fill-in 2s ease-out;
+}
+
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.milestones article {
+  border: 1px solid rgba(27, 27, 26, 0.16);
+  border-radius: 14px;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.milestones h2 {
+  margin: 0 0 0.35rem;
+  font: 700 0.9rem/1.2 'Space Grotesk', sans-serif;
+}
+
+.milestones p {
+  margin: 0;
+  font: 500 0.86rem/1.2 'Space Grotesk', sans-serif;
+  color: var(--muted);
+}
+
+.signal-tower {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.2rem;
+  background: rgba(27, 27, 26, 0.9);
+  color: #fdf7ec;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tower-top {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+.tower-top::before {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+}
+
+.tower-pulse {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  margin-top: -64px;
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+.signal-tower p {
+  margin: 1.1rem 0 0;
+  font: 500 0.95rem/1.5 'Space Grotesk', sans-serif;
+  color: rgba(253, 247, 236, 0.88);
+}
+
+@media (max-width: 900px) {
+  .site-shell {
+    grid-template-columns: 1fr;
   }
+
+  .milestones {
+    grid-template-columns: 1fr;
+  }
+
+  .signal-tower {
+    min-height: 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-beam,
+  .progress-fill,
+  .tower-pulse {
+    animation: none;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    transform: scaleX(0);
+  }
+
   to {
-    transform: rotate(360deg);
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse-ring {
+  from {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+@keyframes drift-a {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-20px, 24px);
+  }
+}
+
+@keyframes drift-b {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(18px, -18px);
   }
 }
