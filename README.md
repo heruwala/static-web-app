@@ -1,6 +1,8 @@
-# Under Construction Landing Site
+# Heruwala Landing Site
 
-A React single-page experience that presents an expressive under-construction message with animated telemetry, milestone cards, and responsive layout.
+A React single-page experience for [heruwala.com](https://www.heruwala.com/) that presents an expressive under-construction message with animated telemetry, milestone cards, and responsive layout.
+
+Security response headers are defined in `public/staticwebapp.config.json` so Azure Static Web Apps can emit Content-Security-Policy, X-Frame-Options, and Permissions-Policy. Fonts are self-hosted to keep the CSP strict.
 
 ## Run Locally
 

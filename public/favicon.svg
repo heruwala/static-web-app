@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Heruwala">
+  <rect width="64" height="64" rx="16" fill="#1b1b1a"/>
+  <path fill="#f4efe4" d="M17 13c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v14.2h8.2V13c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2v38c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V36.6H28V51c0 1.1-.9 2-2 2h-7c-1.1 0-2-.9-2-2V13z"/>
+  <path fill="#d85d33" d="M17 29.4h30.2c1.2 0 1.8 1.5.9 2.3l-4.4 3.7H17c-1.1 0-2-.9-2-2v-2c0-1.1.9-2 2-2z"/>
+  <circle cx="48.6" cy="16.4" r="2.4" fill="#d85d33"/>
+</svg>
